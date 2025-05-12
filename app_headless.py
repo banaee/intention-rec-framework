@@ -6,7 +6,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'my_mesa')))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'models')))
 
-from my_mesa.visualization import SolaraViz
+from mesa_fork.visualization import SolaraViz
 # from my_mesa.visualization import JupyterViz
 
 from models.factory_model import FactoryModel

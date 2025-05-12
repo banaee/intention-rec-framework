@@ -1,4 +1,4 @@
-from my_mesa import Agent
+from mesa_fork import Agent
 
 
 class AV(Agent):

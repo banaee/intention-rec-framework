@@ -30,8 +30,8 @@ from collections import defaultdict
 from collections.abc import Iterable
 
 # mypy
-from my_mesa.agent import Agent, AgentSet
-from my_mesa.model import Model
+from mesa_fork.agent import Agent, AgentSet
+from mesa_fork.model import Model
 
 # BaseScheduler has a self.time of int, while
 # StagedActivation has a self.time of float

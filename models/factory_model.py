@@ -2,12 +2,12 @@ import time
 import cProfile
 import logging
 
-import my_mesa 
+import mesa_fork 
 # from my_mesa.space import MultiGrid
-from my_mesa.time import RandomActivation
-from my_mesa.datacollection import DataCollector
-from my_mesa.my_grid import Grid
-from my_mesa import Model
+from mesa_fork.time import RandomActivation
+from mesa_fork.datacollection import DataCollector
+from mesa_fork.my_grid import Grid
+from mesa_fork import Model
 
 
 import random
@@ -56,8 +56,8 @@ class FactoryModel(Model):
         self.grid = Grid(width, height)  # Use our custom Grid
         # TODO: check which scheduler to use 
         # self.schedule = my_mesa.time.RandomActivation(self)
-        self.schedule = my_mesa.time.SimultaneousActivation(self)
-        self.schedule = my_mesa.time.BaseScheduler(self)      
+        self.schedule = mesa_fork.time.SimultaneousActivation(self)
+        self.schedule = mesa_fork.time.BaseScheduler(self)      
 
 
         # Initialize environment components

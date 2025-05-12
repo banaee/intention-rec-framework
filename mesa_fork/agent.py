@@ -23,8 +23,8 @@ from typing import TYPE_CHECKING, Any
 if TYPE_CHECKING:
     # We ensure that these are not imported during runtime to prevent cyclic
     # dependency.
-    from my_mesa.model import Model
-    from my_mesa.space import Position
+    from mesa_fork.model import Model
+    from mesa_fork.space import Position
 
 
 class Agent:

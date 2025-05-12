@@ -1,5 +1,5 @@
-from my_mesa import Model
-from my_mesa.space import MultiGrid
-from my_mesa.time import RandomActivation
+from mesa_fork import Model
+from mesa_fork.space import MultiGrid
+from mesa_fork.time import RandomActivation
 import random
 

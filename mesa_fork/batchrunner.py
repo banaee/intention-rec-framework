@@ -6,7 +6,7 @@ from typing import Any
 
 from tqdm.auto import tqdm
 
-from my_mesa.model import Model
+from mesa_fork.model import Model
 
 
 def batch_run(

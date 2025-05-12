@@ -6,12 +6,12 @@ Core Objects: Model, and Agent.
 
 import datetime
 
-import my_mesa.space as space
-import my_mesa.time as time
-from my_mesa.agent import Agent
-from my_mesa.batchrunner import batch_run
-from my_mesa.datacollection import DataCollector
-from my_mesa.model import Model
+import mesa_fork.space as space
+import mesa_fork.time as time
+from mesa_fork.agent import Agent
+from mesa_fork.batchrunner import batch_run
+from mesa_fork.datacollection import DataCollector
+from mesa_fork.model import Model
 
 __all__ = [
     "Model",

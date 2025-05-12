@@ -16,8 +16,8 @@ from collections import defaultdict
 # mypy
 from typing import Any
 
-from my_mesa.agent import Agent, AgentSet
-from my_mesa.datacollection import DataCollector
+from mesa_fork.agent import Agent, AgentSet
+from mesa_fork.datacollection import DataCollector
 
 TimeT = float | int
 

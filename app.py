@@ -6,7 +6,7 @@
 # sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'my_mesa')))
 
 
-from my_mesa.visualization import SolaraViz
+from mesa_fork.visualization import SolaraViz
 # from my_mesa.visualization import JupyterViz
 # import mesa.space 
 

@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from my_mesa import Agent
+from mesa_fork import Agent
 # from typing import List, Optional, Tuple
 
 import logging
