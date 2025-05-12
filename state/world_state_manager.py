@@ -1,8 +1,8 @@
 # world_state_manager.py
 from typing import List, Dict, Any, Tuple
 from intentions.state_representation import State, Predicate, Fluent
-from agents.factory_agents.factory_operators import Operator
-from agents.factory_agents.factory_objects import Item, Shelf, KittingTable
+from actors.factory_operators import Operator
+from objects.factory_objects import Item, Shelf, KittingTable
 import logging
 
 

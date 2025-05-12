@@ -1,5 +1,3 @@
-# agents/traffic_agent.py
-# from agents.base_agent import BaseAgent
 from my_mesa import Agent
 
 

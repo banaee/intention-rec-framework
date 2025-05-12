@@ -13,10 +13,10 @@ from my_mesa import Model
 import random
 from typing import List, Union, Optional
 
-import param_config.factory_param_config as fc_config
+import config.factory_param_config as fc_config
 # from models.base_model import BaseModel 
-from agents.factory_agents.factory_operators import Robot, Human
-from agents.factory_agents.factory_objects import Item, Shelf, KittingTable, Door
+from actors.factory_operators import Robot, Human
+from objects.factory_objects import Item, Shelf, KittingTable, Door
 from intentions.state_representation import State, Predicate, Fluent
 from intentions.factory_intentions import  TaskIntention, TaskOrigin, ActionIntention
 # from intentions.intention_planner import IntentionPlanner
@@ -26,7 +26,7 @@ from intentions.task_assignment import assign_tasks_to_operators
 
 from intentions.task_library import TaskLibrary
 
-from world_state_manager import WorldStateManager
+from state.world_state_manager import WorldStateManager
 # logging.basicConfig(level=logging.DEBUG)
 
 

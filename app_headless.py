@@ -10,7 +10,7 @@ from my_mesa.visualization import SolaraViz
 # from my_mesa.visualization import JupyterViz
 
 from models.factory_model import FactoryModel
-import param_config.factory_param_config as fc_config
+import config.factory_param_config as fc_config
 
 # from factory_portrayal import factory_agent_portrayal
 # from drawings.factory_drawers import factory_space_drawer

@@ -8,17 +8,15 @@
 
 from my_mesa.visualization import SolaraViz
 # from my_mesa.visualization import JupyterViz
+# import mesa.space 
+
 
 from models.factory_model import FactoryModel
-from factory_portrayal import factory_agent_portrayal
-import param_config.factory_param_config as fc_config
+from visualization.factory_portrayal import factory_agent_portrayal
+import config.factory_param_config as fc_config
 
-# test
-from drawings.factory_drawers_nov17 import factory_space_drawer
-# from drawings.factory_drawers_cg1 import factory_space_drawer
-# from drawings.factory_drawers_cg2 import factory_space_drawer
+from visualization.factory_space_drawer import factory_space_drawer
 
-# import mesa.space 
 
 simulation_type = "factory"  # Change to "traffic" to run the traffic simulation
 

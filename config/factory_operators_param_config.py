@@ -1,6 +1,6 @@
 import random
 from typing import Dict, List, Tuple
-from param_config.layout_user_config import FACTORY_LAYOUT as LAYOUT
+from config.layout_user_config import FACTORY_LAYOUT as LAYOUT
 
 
 # =============================================================================

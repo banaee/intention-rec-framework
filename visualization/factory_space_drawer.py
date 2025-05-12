@@ -2,9 +2,8 @@ import solara
 # from matplotlib.figure import Figure
 # from my_mesa.visualization import SolaraViz
 
-# from agents.factory_agent import Operator, Robot, Human, Item, KittingTable, Shelf
-from agents.factory_agents.factory_operators import Human, Robot, Operator
-from agents.factory_agents.factory_objects import Item, Shelf, KittingTable
+from actors.factory_operators import Human, Robot, Operator
+from objects.factory_objects import Item, Shelf, KittingTable
 
 import pandas as pd
 import plotly.express as px

@@ -1,8 +1,8 @@
 from typing import Dict, List, Tuple
-from param_config.layout_user_config import FACTORY_LAYOUT as LAYOUT
+from config.layout_user_config import FACTORY_LAYOUT as LAYOUT
 
-from param_config.factory_objects_params_config import get_objects_config
-from param_config.factory_operators_param_config import get_operators_config
+from config.factory_objects_params_config import get_objects_config
+from config.factory_operators_param_config import get_operators_config
 
 
 # =============================================================================
