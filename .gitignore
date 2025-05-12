@@ -172,3 +172,14 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# Ignore IDE specific files
+.vscode/
+.idea/
+
+
+# Ignore files and folders starting with "my_"
+my_*
+
+
