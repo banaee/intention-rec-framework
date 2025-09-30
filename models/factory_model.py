@@ -6,7 +6,9 @@ import mesa_fork
 # from my_mesa.space import MultiGrid
 from mesa_fork.time import RandomActivation
 from mesa_fork.datacollection import DataCollector
-from mesa_fork.my_grid import Grid
+# from mesa_fork.grid_customised import Grid
+from mesa_fork.space import ContinuousSpace
+
 from mesa_fork import Model
 
 
@@ -53,9 +55,21 @@ class FactoryModel(Model):
         self.current_id = 0
         self.mytext = mytext_p
 
-        self.grid = Grid(width, height)  # Use our custom Grid
+        # self.grid = Grid(width, height)  # Use our custom Grid
+        
+        # TODO: I still call it grid since in other files it is model.grid. but later contSpace is a better name
+        self.grid = ContinuousSpace(
+            x_max=width, 
+            y_max=height,
+            torus=False,  # Your factory has walls, not wraparound
+            x_min=0,
+            y_min=0
+        )   
+                
         # TODO: check which scheduler to use 
         # self.schedule = my_mesa.time.RandomActivation(self)
+        
+        
         self.schedule = mesa_fork.time.SimultaneousActivation(self)
         self.schedule = mesa_fork.time.BaseScheduler(self)      
 
