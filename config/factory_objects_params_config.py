@@ -37,7 +37,7 @@ DOORS = [
     {
         "id": "south_exit",
         "name": "EXIT",
-        "function": "exit",
+        "usage": "exit",
         "size": LAYOUT["door_size"],
         "pos": (LAYOUT["width"] // 2 - LAYOUT["door_size"][0] // 2, 
                 0),
@@ -46,7 +46,7 @@ DOORS = [
     {
         "id": "north_entry_west",
         "name": "ENTRANCE B",
-        "function": "enter",
+        "usage": "enter",
         "size": LAYOUT["door_size"],
         "pos": (0, 
                 LAYOUT["height"] - LAYOUT["door_size"][1]),
@@ -55,7 +55,7 @@ DOORS = [
     {
         "id": "north_entry_east",
         "name": "ENTRANCE A",
-        "function": "enter",
+        "usage": "enter",
         "size": LAYOUT["door_size"],
         "pos": (LAYOUT["width"] -  LAYOUT["door_size"][0], 
                 LAYOUT["height"] - LAYOUT["door_size"][1]),

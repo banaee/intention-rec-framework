@@ -24,17 +24,17 @@ class Operator(Agent):
     def __init__(self, unique_id: str, model, 
                  size: Tuple[int, int], 
                  init_pos: Tuple[int, int], 
-                 pos: Tuple[int, int],
-                #  TODO: add velocity v_x, v_y (same as pos DS) 
                  side: str):
         super().__init__(unique_id, model)
+        
+        # id is inherited from Agent class. It will be set to unique_id in super().__init__()
+        # pos is inherited from Agent class. It will be set when placing the agent on the grid (see FactoryModel)
         
         # basic attributes
         self.unique_id = unique_id
         self.model = model
         self.size = size
         self.init_pos = init_pos
-        self.pos = pos
         self.side = side
         self.carrying = None
         self.planned_path = []
@@ -54,8 +54,8 @@ class Operator(Agent):
         # Base step method called by both Human and Robot
         print(f"\n--- {self.unique_id} Step no. {self.model.schedule.steps} ---")
         
-        # Execute subclass-specific step logic (implemented by subclasses)
-        self._execute_step()
+        # runs subclass-specific step logic (implemented by subclasses)
+        self._agent_step()
         
         # Update tracking variables from executor
         self.current_task = self.executor.current_task
@@ -89,9 +89,9 @@ class Operator(Agent):
 # Human class
 # ========================================================
 class Human(Operator):
-    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], pos: Tuple[int, int], side: str):
-        super().__init__(unique_id, model, size, init_pos, pos, side)
-
+    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], side: str):
+        super().__init__(unique_id=unique_id, model=model, size=size, init_pos=init_pos, side=side)
+        
 
 
         # Human-specific planning/execution
@@ -113,10 +113,10 @@ class Human(Operator):
        
 
 
-    def _execute_step(self):
+    def _agent_step(self):
 
         # human specific simulaion-execution step
-        self.executor.step()
+        self.executor.act()
 
 
 
@@ -124,8 +124,8 @@ class Human(Operator):
 # Robot class
 # ========================================================
 class Robot(Operator):
-    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], pos: Tuple[int, int], side: str):
-        super().__init__(unique_id, model, size, init_pos, pos, side)
+    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], side: str):
+        super().__init__(unique_id=unique_id, model=model, size=size, init_pos=init_pos, side=side)
 
 
         # Robot-specific planning/execution
@@ -150,15 +150,14 @@ class Robot(Operator):
         # self.inferred_human_task_action: Optional[Task] = None
         # self.perceived_environment: Dict[str, Dict[int, Tuple[int, int]]] = {}
 
-    
-    def _execute_step(self):
-            
+
+    def _agent_step(self):
 
         # First, observe humans and update beliefs BEFORE doing your own actions
         self.intention_recognition.step()
-        
-        # Then run simulation-execution step
-        self.executor.step()
+
+        # Then agent-specific step will act to do its own actions
+        self.executor.act()
 
 
         self._print_beliefs()

@@ -171,12 +171,13 @@ class FactoryModel(Model):
             door = Door(unique_id=door_data["id"], 
                           model=self, 
                           name=door_data["name"],
-                          function=door_data["function"],
+                          usage=door_data["usage"],
                           size=door_data["size"],
-                          pos=door_data["pos"], 
                           side=door_data["side"])
+            
+            
             self.doors[door_data["id"]] = door
-            self.grid.place_agent(door, door.pos)
+            self.grid.place_agent(door, door_data["pos"])  #MESA way of filling "pos" property of agents
             self.schedule.add(door)
 
         
@@ -186,10 +187,9 @@ class FactoryModel(Model):
         self.kitting_table = KittingTable(unique_id="kitting_table", 
                                           model=self,
                                           size=kitting_table_p["size"],
-                                          pos=kitting_table_p["pos"],
                                             side=kitting_table_p["side"])
-        
-        self.grid.place_agent(self.kitting_table, self.kitting_table.pos)
+
+        self.grid.place_agent(self.kitting_table, kitting_table_p["pos"])   #MESA way of filling "pos" property of agents
         self.schedule.add(self.kitting_table)
 
         
@@ -201,10 +201,10 @@ class FactoryModel(Model):
             shelf = Shelf(unique_id=shelf_data["id"], 
                           model=self, 
                           size=shelf_data["size"],
-                          pos=shelf_data["pos"], 
                           side=shelf_data["side"])
+
             self.shelves[shelf_data["id"]] = shelf
-            self.grid.place_agent(shelf, shelf.pos)
+            self.grid.place_agent(shelf, shelf_data["pos"])   #MESA way of filling "pos" property of agents
             self.schedule.add(shelf)
     
     
@@ -217,13 +217,12 @@ class FactoryModel(Model):
                         model=self,
                         size=item_data["size"],
                         init_pos=item_data["init_pos"],
-                        pos=item_data["pos"],
                         init_shelf_id=item_data["init_shelf_id"],
                         holder = self.shelves[item_data["init_shelf_id"]],
                         )
-            self.items[item_data["unique_id"]] = item
-            self.grid.place_agent(item, item.pos)
 
+            self.items[item_data["unique_id"]] = item
+            self.grid.place_agent(item, item_data["pos"])   #MESA way of filling "pos" property of agents
             self.schedule.add(item)
              
             # UPDATE shelves: add items to shelves
@@ -238,7 +237,6 @@ class FactoryModel(Model):
                           model=self, 
                           size=human_data["size"],
                           init_pos=human_data["init_pos"],
-                          pos=human_data["pos"],
                           side=human_data["side"],
                           )
             
@@ -246,7 +244,7 @@ class FactoryModel(Model):
             # self.print_assigned_tasks_to_operator()
             
             self.humans[human_data["id"]] = human
-            self.grid.place_agent(human, human.pos)            
+            self.grid.place_agent(human, human_data["pos"])   #MESA way of filling "pos" property of agents            
             self.schedule.add(human)
 
 
@@ -263,13 +261,12 @@ class FactoryModel(Model):
                           model=self, 
                           size=robot_data["size"],
                           init_pos=robot_data["init_pos"],
-                          pos=robot_data["pos"],
                           side=robot_data["side"], 
             )
             # self.assign_tasks_to_operator(robot, robot_data['task_intentions'])
             
             self.robots[robot_data["id"]] = robot
-            self.grid.place_agent(robot, robot.pos)
+            self.grid.place_agent(robot, robot_data["pos"])   #MESA way of filling "pos" property of agents
             self.schedule.add(robot)
 
 

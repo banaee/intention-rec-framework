@@ -62,7 +62,7 @@ def get_operators_config(objects: Dict) -> Dict:
 # =============================================================================
 
 def __get_operator_init_position(data: Dict, doors: List[Dict]) -> tuple:
-    entry_door = [door for door in doors if door["side"] == data["side"] and door["function"] == "enter"][0]
+    entry_door = [door for door in doors if door["side"] == data["side"] and door["usage"] == "enter"][0]
     # calculate pos_x
     if data["side"] == "left":
         pos_x = entry_door["pos"][0] + entry_door["size"][0] 

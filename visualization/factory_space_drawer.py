@@ -110,7 +110,7 @@ def _factory_static_elements(model):
             x1= door.pos[0]+ door.size[0],
             y1= door.pos[1]+ door.size[1],
             line=dict(color="white", width=1), 
-            fillcolor="red" if door.function == "exit" else "green",
+            fillcolor="red" if door.usage == "exit" else "green",
             opacity=0.5,
         )
         
