@@ -24,7 +24,7 @@ class Operator(Agent):
     def __init__(self, unique_id: str, model, 
                  size: Tuple[int, int], 
                  init_pos: Tuple[int, int], 
-                 side: str):
+                 side: str, zone: str):
         super().__init__(unique_id, model)
         
         # id is inherited from Agent class. It will be set to unique_id in super().__init__()
@@ -36,6 +36,8 @@ class Operator(Agent):
         self.size = size
         self.init_pos = init_pos
         self.side = side
+        self.zone = zone
+
         self.carrying = None
         self.planned_path = []
 
@@ -89,8 +91,8 @@ class Operator(Agent):
 # Human class
 # ========================================================
 class Human(Operator):
-    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], side: str):
-        super().__init__(unique_id=unique_id, model=model, size=size, init_pos=init_pos, side=side)
+    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], side: str, zone: str):
+        super().__init__(unique_id=unique_id, model=model, size=size, init_pos=init_pos, side=side, zone=zone)
         
 
 
@@ -124,8 +126,8 @@ class Human(Operator):
 # Robot class
 # ========================================================
 class Robot(Operator):
-    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], side: str):
-        super().__init__(unique_id=unique_id, model=model, size=size, init_pos=init_pos, side=side)
+    def __init__(self, unique_id: str, model, size: Tuple[int, int], init_pos: Tuple[int, int], side: str, zone: str):
+        super().__init__(unique_id=unique_id, model=model, size=size, init_pos=init_pos, side=side, zone=zone)
 
 
         # Robot-specific planning/execution

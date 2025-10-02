@@ -25,8 +25,8 @@ class Executor:
         self.current_action_sequence = []
         
 
-    def step(self):
-        """Execute one step of behavior"""
+    def act(self):
+        """act is called by the agent's step method each tick"""
         '''
         print(f"\n--- Executor Step [{self.agent.unique_id}] ---")
         '''

@@ -23,15 +23,15 @@ def get_factory_model_params() -> Dict:
         "width": LAYOUT["width"],
         "height": LAYOUT["height"],
         
-        "doors_p": objects["doors"],
-        "kitting_table_p": objects["kitting_table"],
-        "shelves_p": objects["shelves"],
-        "items_p": objects["items"],
+        "doors_params": objects["doors"],
+        "kitting_table_params": objects["kitting_table"],
+        "shelves_params": objects["shelves"],
+        "items_params": objects["items"],
         
-        "robots_p": operators["robots"],
-        "humans_p": operators["humans"],
+        "robots_params": operators["robots"],
+        "humans_params": operators["humans"],
         
-        "mytext_p": "TEXT mytext in model_params",
+        "mytext_params": "TEXT mytext in model_params",
 
     }
 

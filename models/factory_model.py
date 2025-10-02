@@ -38,13 +38,13 @@ class FactoryModel(Model):
     def __init__(self, 
                  width,
                  height, 
-                 doors_p,
-                 kitting_table_p,
-                 shelves_p,
-                 items_p,
-                 robots_p,
-                 humans_p,
-                 mytext_p,
+                 doors_params,
+                 kitting_table_params,
+                 shelves_params,
+                 items_params,
+                 robots_params,
+                 humans_params,
+                 mytext_params,
                  ):
         super().__init__()
         
@@ -53,7 +53,7 @@ class FactoryModel(Model):
         self.height = height
 
         self.current_id = 0
-        self.mytext = mytext_p
+        self.mytext = mytext_params
 
         # self.grid = Grid(width, height)  # Use our custom Grid
         
@@ -75,10 +75,10 @@ class FactoryModel(Model):
 
 
         # Initialize environment components
-        self.init_doors(doors_p)
-        self.init_kitting_table(kitting_table_p)
-        self.init_shelves(shelves_p)
-        self.init_items(items_p)
+        self.init_doors(doors_params)
+        self.init_kitting_table(kitting_table_params)
+        self.init_shelves(shelves_params)
+        self.init_items(items_params)
 
 
         # Initialize task library
@@ -87,8 +87,8 @@ class FactoryModel(Model):
         
         # Initialize agents
         # TODO: ensure human is initialized before robot
-        self.init_humans(humans_p)
-        self.init_robots(robots_p)
+        self.init_humans(humans_params)
+        self.init_robots(robots_params)
 
         
         # --------------------------------------------------------------
@@ -162,111 +162,116 @@ class FactoryModel(Model):
     # =============================================================================
     # Initialization methods
     # =============================================================================
-        
-    def init_doors(self, doors_p):    
-        # initialize shelves
-        # logging.debug("Initializing shelves")
+
+    def init_doors(self, doors_params):    
         self.doors = {}
-        for door_data in doors_p:
+        for door_data in doors_params:
             door = Door(unique_id=door_data["id"], 
                           model=self, 
                           name=door_data["name"],
                           usage=door_data["usage"],
                           size=door_data["size"],
-                          side=door_data["side"])
-            
-            
+                          side=door_data["side"],
+                          zone=door_data["zone"])
+
+
             self.doors[door_data["id"]] = door
-            self.grid.place_agent(door, door_data["pos"])  #MESA way of filling "pos" property of agents
+            self.grid.place_agent(door, door_data["init_pos"])  #MESA way of filling "pos" property of agents
             self.schedule.add(door)
 
-        
-    def init_kitting_table(self, kitting_table_p):
-        # initialize kittin table
+
+    def init_kitting_table(self, kitting_table_params):
+        # initialize kitting table
         # logging.debug("Initializing kitting table")
         self.kitting_table = KittingTable(unique_id="kitting_table", 
                                           model=self,
-                                          size=kitting_table_p["size"],
-                                            side=kitting_table_p["side"])
+                                          size=kitting_table_params["size"],
+                                          side=kitting_table_params["side"],
+                                          zone=kitting_table_params["zone"])
 
-        self.grid.place_agent(self.kitting_table, kitting_table_p["pos"])   #MESA way of filling "pos" property of agents
+        self.grid.place_agent(self.kitting_table, kitting_table_params["init_pos"])   #MESA way of filling "pos" property of agents
         self.schedule.add(self.kitting_table)
 
-        
-    def init_shelves(self, shelves_p):
+
+    def init_shelves(self, shelves_params):
         # initialize shelves
         # logging.debug("Initializing shelves")
         self.shelves = {}
-        for shelf_data in shelves_p:
+        for shelf_data in shelves_params:
             shelf = Shelf(unique_id=shelf_data["id"], 
                           model=self, 
                           size=shelf_data["size"],
-                          side=shelf_data["side"])
+                          side=shelf_data["side"],
+                          zone=shelf_data["zone"])
 
             self.shelves[shelf_data["id"]] = shelf
-            self.grid.place_agent(shelf, shelf_data["pos"])   #MESA way of filling "pos" property of agents
+            self.grid.place_agent(shelf, shelf_data["init_pos"])   #MESA way of filling "pos" property of agents
             self.schedule.add(shelf)
-    
-    
-    def init_items(self, items_p):        
+
+
+    def init_items(self, items_params):
         # initialize items
         # logging.debug("Initializing items")
         self.items = {}
-        for item_data in items_p:
+        for item_data in items_params:
             item = Item(unique_id=item_data["unique_id"], 
                         model=self,
                         size=item_data["size"],
                         init_pos=item_data["init_pos"],
                         init_shelf_id=item_data["init_shelf_id"],
                         holder = self.shelves[item_data["init_shelf_id"]],
+                        side = self.shelves[item_data["init_shelf_id"]].side,
+                        zone = self.shelves[item_data["init_shelf_id"]].zone
                         )
 
             self.items[item_data["unique_id"]] = item
-            self.grid.place_agent(item, item_data["pos"])   #MESA way of filling "pos" property of agents
+            self.grid.place_agent(item, item_data["init_pos"])   #MESA way of filling "pos" property of agents
             self.schedule.add(item)
              
             # UPDATE shelves: add items to shelves
             self.shelves[item_data["init_shelf_id"]].add_item(item)
 
-    def init_humans(self, humans_p):
+    def init_humans(self, humans_params):
         # Initialize humans
         self.humans = {}
         # logging.debug("Initializing humans")
-        for human_data in humans_p:
+        for human_data in humans_params:
             human = Human(unique_id=human_data["id"], 
                           model=self, 
                           size=human_data["size"],
                           init_pos=human_data["init_pos"],
-                          side=human_data["side"],
+                          side=human_data["side"], 
+                          zone=human_data["zone"]
                           )
             
             # self.assign_tasks_to_operator(human, 
             # self.print_assigned_tasks_to_operator()
             
             self.humans[human_data["id"]] = human
-            self.grid.place_agent(human, human_data["pos"])   #MESA way of filling "pos" property of agents            
+            self.grid.place_agent(human, human_data["init_pos"])   #MESA way of filling "pos" property of agents
             self.schedule.add(human)
 
 
         logging.debug("FactoryModel initialization complete")
-    
-            
-    def init_robots(self, robots_p):            
+
+
+    def init_robots(self, robots_params):
         # Initialize robots
         # logging.debug("Initializing robots")
         self.robots = {}
-        
-        for robot_data in robots_p:
+
+        for robot_data in robots_params:
             robot = Robot(unique_id=robot_data["id"], 
                           model=self, 
                           size=robot_data["size"],
                           init_pos=robot_data["init_pos"],
-                          side=robot_data["side"], 
+                          side=robot_data["side"],
+                          zone=robot_data["zone"]
             )
             # self.assign_tasks_to_operator(robot, robot_data['task_intentions'])
             
             self.robots[robot_data["id"]] = robot
-            self.grid.place_agent(robot, robot_data["pos"])   #MESA way of filling "pos" property of agents
+            self.grid.place_agent(robot, robot_data["init_pos"])   #MESA way of filling "pos" property of agents
             self.schedule.add(robot)
 
 

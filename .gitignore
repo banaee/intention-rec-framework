@@ -183,3 +183,5 @@ cython_debug/
 my_*
 
 
+tasks.md
+CLAUDE.md

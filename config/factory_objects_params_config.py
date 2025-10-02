@@ -1,33 +1,7 @@
 import random
 from typing import Dict, List, Tuple
-from config.layout_user_config import FACTORY_LAYOUT as LAYOUT
+from config.layout_user_config import FACTORY_LAYOUT as LAYOUT, get_zone_for_position
 
-
-# =============================================================================
-# WALLS CONFIG
-# =============================================================================
-# WALLS = [
-#     {
-#         "id": "north_wall",
-#         "start": (0, 0),
-#         "end": (FACTORY_LAYOUT["width"], 0)
-#     },
-#     {
-#         "id": "east_wall",
-#         "start": (FACTORY_LAYOUT["width"], 0),
-#         "end": (FACTORY_LAYOUT["width"], FACTORY_LAYOUT["height"])
-#     },
-#     {
-#         "id": "south_wall",
-#         "start": (0, FACTORY_LAYOUT["height"]),
-#         "end": (FACTORY_LAYOUT["width"], FACTORY_LAYOUT["height"])
-#     },
-#     {
-#         "id": "west_wall",
-#         "start": (0, 0),
-#         "end": (0, FACTORY_LAYOUT["height"])
-#     }
-# ]
 
 
 # =============================================================================
@@ -39,27 +13,30 @@ DOORS = [
         "name": "EXIT",
         "usage": "exit",
         "size": LAYOUT["door_size"],
-        "pos": (LAYOUT["width"] // 2 - LAYOUT["door_size"][0] // 2, 
+        "init_pos": (LAYOUT["width"] // 2 - LAYOUT["door_size"][0] // 2, 
                 0),
-        "side": "south"
+        "side": "south",
+        "zone": get_zone_for_position((LAYOUT["width"] // 2 - LAYOUT["door_size"][0] // 2, 0))
     },
     {
         "id": "north_entry_west",
         "name": "ENTRANCE B",
         "usage": "enter",
         "size": LAYOUT["door_size"],
-        "pos": (0, 
+        "init_pos": (0, 
                 LAYOUT["height"] - LAYOUT["door_size"][1]),
-        "side": "left"
+        "side": "left",
+        "zone": get_zone_for_position((0, LAYOUT["height"] - LAYOUT["door_size"][1]))
     },
     {
         "id": "north_entry_east",
         "name": "ENTRANCE A",
         "usage": "enter",
         "size": LAYOUT["door_size"],
-        "pos": (LAYOUT["width"] -  LAYOUT["door_size"][0], 
+        "init_pos": (LAYOUT["width"] -  LAYOUT["door_size"][0], 
                 LAYOUT["height"] - LAYOUT["door_size"][1]),
-        "side": "right"
+        "side": "right",
+        "zone": get_zone_for_position((LAYOUT["width"] -  LAYOUT["door_size"][0], LAYOUT["height"] - LAYOUT["door_size"][1]))
     },
 ]
     
@@ -78,9 +55,9 @@ def get_kitting_table_position(layout: Dict) -> Tuple[int, int]:
 KITTING_TABLE = {
     "id": "kitting_table",
     "size": LAYOUT["kitting_size"],
-    "pos": get_kitting_table_position(LAYOUT),
-    "side": "north"
-    
+    "init_pos": get_kitting_table_position(LAYOUT),
+    "side": "north",
+    "zone": get_zone_for_position(get_kitting_table_position(LAYOUT))
 }
 
 
@@ -101,14 +78,15 @@ SHELF_POSITIONS = SHELF_PLACES_EAST + SHELF_PLACES_WEST + SHELF_PLACES_SOUTH_EAS
 
 SHELVES = []
 for i in range(LAYOUT["num_shelves"]):
-    rand_place = random.choice(SHELF_POSITIONS)
+    shelf_pos = random.choice(SHELF_POSITIONS)
     SHELVES.append({
         "id": f"shelf_{i+1}",
         "size": LAYOUT["shelf_size"],
-        "pos": (rand_place[0], rand_place[1]),
-        "side": rand_place[2]
+        "init_pos": (shelf_pos[0], shelf_pos[1]),
+        "side": shelf_pos[2],
+        "zone": get_zone_for_position((shelf_pos[0], shelf_pos[1]))
     })
-    SHELF_POSITIONS.remove(rand_place)
+    SHELF_POSITIONS.remove(shelf_pos)
 
 
 # =============================================================================
@@ -122,7 +100,7 @@ def generate_items(shelves: List[Dict]) -> List[Dict]:
     item_w, item_h = LAYOUT["item_size"]
 
     for shelf in shelves:
-        shelf_x, shelf_y = shelf["pos"]
+        shelf_x, shelf_y = shelf["init_pos"]
         for i in range(LAYOUT["items_per_shelf"]):
             # Calculate exact position relative to shelf
             item_x = shelf_x + i * item_w
@@ -132,9 +110,10 @@ def generate_items(shelves: List[Dict]) -> List[Dict]:
                 "unique_id": f"item_{counter}",
                 "size": LAYOUT["item_size"],
                 "init_pos": (item_x, item_y),
-                "pos": (item_x, item_y),  # Initially same as init_pos
                 "init_shelf_id": shelf["id"],
-                "holder": None
+                "holder": None,
+                "side": shelf["side"],
+                "zone": shelf["zone"]
             })
             counter += 1
     
@@ -153,5 +132,5 @@ def get_objects_config():
         "items": ITEMS,
         "kitting_table": KITTING_TABLE,
         # "walls": WALLS,
-        "doors": DOORS
+        "doors": DOORS,
     }

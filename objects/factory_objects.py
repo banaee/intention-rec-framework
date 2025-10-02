@@ -10,10 +10,7 @@ import logging
 # parent class for all passive objects in the factory
 class PassiveAgent(Agent):
     def __init__(self, unique_id: str, model, 
-                 size, 
-                 side,
-                 ):
-        
+                 size, side, zone):
         super().__init__(unique_id, model)
 
         # ID and pos are inherited from Mesa Agent class. 
@@ -22,30 +19,26 @@ class PassiveAgent(Agent):
         
         self.size = size
         self.side = side
-
-
-
-
+        self.zone = zone
 
     def update_pos(self, given_pos):
         self.pos = given_pos
     
-    
-    
+     
     
     
 class Item(PassiveAgent):
     def __init__(self, unique_id: str, model,
                  size,  init_pos,  
-                 init_shelf_id, 
-                 holder):
-        super().__init__(unique_id, model, size, side=None)
+                 init_shelf_id,
+                 holder,
+                 side, zone):
+        super().__init__(unique_id, model, size, side=side, zone=zone)
 
         # ITEM SPECIFIC ATTRIBUTES
         self.init_pos = init_pos              # ONLY items have init_pos (where they start in the factory)
-        self.init_shelf_id = init_shelf_id      
+        self.init_shelf_id = init_shelf_id
         self.holder = holder                    # # Reference to what holds it: shelf/table/agent/None (if on floor)
-
 
     def update_holder(self, holder_agent):
         self.holder = holder_agent
@@ -63,8 +56,8 @@ class Item(PassiveAgent):
 
 class Shelf(PassiveAgent):
     def __init__(self, unique_id, model, 
-                 size,  side):
-        super().__init__(unique_id, model, size, side=side)
+                 size,  side, zone):
+        super().__init__(unique_id, model, size, side=side, zone=zone)
 
         # Shelf-specific attributes
         self.current_items = []
@@ -79,10 +72,9 @@ class Shelf(PassiveAgent):
         item.holder = None
 
 
-
 class KittingTable(PassiveAgent):
-    def __init__(self, unique_id, model, size, side):
-        super().__init__(unique_id, model, size, side=side)
+    def __init__(self, unique_id, model, size, side, zone):
+        super().__init__(unique_id, model, size, side=side, zone=zone)
 
         # KittingTable-specific attributes
         self.current_items = [] # items currently on the table, initially empty
@@ -99,10 +91,8 @@ class KittingTable(PassiveAgent):
 
 class Door(PassiveAgent):
     def __init__(self, unique_id, model, 
-                 size, 
-                 name, usage, 
-                 side):
-        super().__init__(unique_id, model, size, side=side)
+                 size, name, usage, side, zone):
+        super().__init__(unique_id, model, size, side=side, zone=zone)
 
         # Door-specific attributes
         self.usage = usage
@@ -114,3 +104,6 @@ class Door(PassiveAgent):
 
     def close(self):
         pass
+    
+
+

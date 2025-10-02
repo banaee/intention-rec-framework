@@ -35,9 +35,9 @@ else:
 
 # print("-"*50)
 # for key, value in model_params.items():
-#     if key == "robots_p" or key == "humans_p":
+#     if key == "robots_params" or key == "humans_params":
 #         print(f"{key}: {value}")
-#     # if key == "items_p":
+#     # if key == "items_params":
 #     #         for door in value:
 #     #             print(f"{key}: {door}")
 #     # print(f"{key}: {value}")
