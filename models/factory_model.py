@@ -18,7 +18,7 @@ from typing import List, Union, Optional
 import config.factory_param_config as fc_config
 # from models.base_model import BaseModel 
 from actors.factory_operators import Robot, Human
-from objects.factory_objects import Item, Shelf, KittingTable, Door
+from objects.factory_objects import ACSwitch, CoffeeMachine, Item, Shelf, KittingTable, Door
 from intentions.state_representation import State, Predicate, Fluent
 from intentions.factory_intentions import  TaskIntention, TaskOrigin, ActionIntention
 # from intentions.intention_planner import IntentionPlanner
@@ -42,6 +42,8 @@ class FactoryModel(Model):
                  kitting_table_params,
                  shelves_params,
                  items_params,
+                 coffee_machines_params,
+                 ac_switches_params,
                  robots_params,
                  humans_params,
                  mytext_params,
@@ -79,7 +81,8 @@ class FactoryModel(Model):
         self.init_kitting_table(kitting_table_params)
         self.init_shelves(shelves_params)
         self.init_items(items_params)
-
+        self.init_coffee_machines(coffee_machines_params)
+        self.init_ac_switches(ac_switches_params)
 
         # Initialize task library
         self.task_library = TaskLibrary(self)
@@ -230,6 +233,37 @@ class FactoryModel(Model):
              
             # UPDATE shelves: add items to shelves
             self.shelves[item_data["init_shelf_id"]].add_item(item)
+
+    def init_coffee_machines(self, coffee_machines_params):
+        # initialize coffee machines
+        # logging.debug("Initializing coffee machines")
+        self.coffee_machines = {}
+        for cm_data in coffee_machines_params:
+            cm = CoffeeMachine(unique_id=cm_data["id"], 
+                          model=self, 
+                          size=cm_data["size"],
+                          side=cm_data["side"],
+                          zone=cm_data["zone"])
+
+
+            self.coffee_machines[cm_data["id"]] = cm
+            self.grid.place_agent(cm, cm_data["init_pos"])  #MESA way of filling "pos" property of agents
+            self.schedule.add(cm)
+
+    def init_ac_switches(self, ac_switches_params):
+        # initialize AC switches
+        # logging.debug("Initializing AC switches")
+        self.ac_switches = {}
+        for ac_data in ac_switches_params:
+            ac = ACSwitch(unique_id=ac_data["id"], 
+                       model=self, 
+                       size=ac_data["size"],
+                       side=ac_data["side"],
+                       zone=ac_data["zone"])
+
+            self.ac_switches[ac_data["id"]] = ac
+            self.grid.place_agent(ac, ac_data["init_pos"])  #MESA way of filling "pos" property of agents
+            self.schedule.add(ac)
 
     def init_humans(self, humans_params):
         # Initialize humans

@@ -104,6 +104,17 @@ class Door(PassiveAgent):
 
     def close(self):
         pass
-    
+
+
+
+class CoffeeMachine(PassiveAgent):
+    def __init__(self, unique_id, model, 
+                 size, side, zone):
+        super().__init__(unique_id, model, size, side=side, zone=zone)
+
+class ACSwitch(PassiveAgent):
+    def __init__(self, unique_id, model, 
+                 size, side, zone):
+        super().__init__(unique_id, model, size, side=side, zone=zone)    
 
 

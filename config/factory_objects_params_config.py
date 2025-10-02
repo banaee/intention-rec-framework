@@ -125,6 +125,42 @@ ITEMS = generate_items(SHELVES)
 
 
 
+# =============================================================================
+# COFFEE MACHINES CONFIG
+# =============================================================================
+COFFEE_MACHINES = [
+    {
+        "id": "coffee_machine_1",
+        "size": (50, 50),
+        "init_pos": (LAYOUT["width"] - 120, 120),
+        "zone": "zone_SE",
+        "side": "right"
+    }
+]
+
+
+# =============================================================================
+# AC SWITCHES CONFIG
+# =============================================================================
+AC_SWITCHES = [
+    {
+        "id": "ac_switch_1",
+        "size": (20, 20),
+        "init_pos": (LAYOUT["width"] - 70, LAYOUT["height"] - 70),
+        "zone": "zone_SW",
+        "side": "right"
+    }
+]
+
+
+# =============================================================================
+# =============================================================================
+# Export configurations
+# =============================================================================
+# =============================================================================
+
+
+
 # Export configurations
 def get_objects_config():
     return {
@@ -133,4 +169,6 @@ def get_objects_config():
         "kitting_table": KITTING_TABLE,
         # "walls": WALLS,
         "doors": DOORS,
+        "coffee_machines": COFFEE_MACHINES,
+        "ac_switches": AC_SWITCHES
     }

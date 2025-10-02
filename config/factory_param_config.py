@@ -27,7 +27,10 @@ def get_factory_model_params() -> Dict:
         "kitting_table_params": objects["kitting_table"],
         "shelves_params": objects["shelves"],
         "items_params": objects["items"],
-        
+
+        "coffee_machines_params": objects["coffee_machines"],
+        "ac_switches_params": objects["ac_switches"],
+
         "robots_params": operators["robots"],
         "humans_params": operators["humans"],
         
